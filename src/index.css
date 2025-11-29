@@ -1,0 +1,283 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 35 25% 97%;
+    --foreground: 25 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 25 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 15% 15%;
+
+    --primary: 28 85% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 340 75% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 35 20% 90%;
+    --muted-foreground: 25 10% 45%;
+
+    --accent: 45 95% 60%;
+    --accent-foreground: 25 15% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 35 20% 85%;
+    --input: 35 20% 90%;
+    --ring: 28 85% 55%;
+
+    --radius: 0.75rem;
+    
+    --hero-gradient: linear-gradient(135deg, hsl(28 85% 55%), hsl(340 75% 45%));
+    --card-gradient: linear-gradient(to bottom, hsl(0 0% 100%), hsl(35 25% 98%));
+    --warm-glow: 0 10px 40px -10px hsl(28 85% 55% / 0.3);
+    --elegant-shadow: 0 4px 20px -4px hsl(25 15% 15% / 0.1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Custom animations and effects */
+    --smoke-gradient: radial-gradient(circle at center, hsl(0 0% 100% / 0.15), transparent 70%);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 25 20% 12%;
+    --foreground: 35 25% 95%;
+
+    --card: 25 18% 15%;
+    --card-foreground: 35 25% 95%;
+
+    --popover: 25 18% 15%;
+    --popover-foreground: 35 25% 95%;
+
+    --primary: 28 85% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 340 75% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 25 15% 20%;
+    --muted-foreground: 35 15% 60%;
+
+    --accent: 45 95% 60%;
+    --accent-foreground: 25 20% 12%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 25 15% 25%;
+    --input: 25 15% 20%;
+    --ring: 28 85% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground overflow-x-hidden;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    @apply overflow-x-hidden;
+    scroll-behavior: smooth;
+  }
+
+  * {
+    @apply max-w-full;
+  }
+
+  /* Mobile-first touch optimizations */
+  @media (max-width: 768px) {
+    body {
+      font-size: 14px;
+    }
+
+    /* Better touch targets */
+    button, a, [role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Optimize container padding for mobile */
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Better text scaling */
+    h1 {
+      font-size: 1.75rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+  }
+
+  /* Improve scrollable areas */
+  .overflow-x-auto, .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  /* Better button spacing and sizing */
+  .ripple-button {
+    @apply px-6 py-3 text-base font-semibold;
+  }
+
+  @media (max-width: 768px) {
+    .ripple-button {
+      @apply px-5 py-2.5 text-sm;
+    }
+  }
+}
+
+@layer utilities {
+  /* Navigation link underline animation */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Smoke effect on hover */
+  .smoke-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .smoke-effect::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, hsl(var(--secondary) / 0.3) 30%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(25px);
+  }
+  
+  .smoke-effect:hover::before {
+    opacity: 1;
+    animation: smoke-drift 3s ease-in-out infinite;
+  }
+
+  @keyframes smoke-drift {
+    0%, 100% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    25% {
+      transform: translate(20px, -20px) scale(1.2) rotate(5deg);
+    }
+    50% {
+      transform: translate(-20px, 20px) scale(0.85) rotate(-5deg);
+    }
+    75% {
+      transform: translate(20px, 20px) scale(1.15) rotate(3deg);
+    }
+  }
+
+  /* Ripple effect for buttons */
+  .ripple-button {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .ripple-button::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(circle, hsl(var(--primary-foreground) / 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    transition: transform 0.6s ease-out;
+  }
+  
+  .ripple-button:hover::after {
+    transform: translate(-50%, -50%) scale(2);
+  }
+
+  /* Continuous scroll animation */
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll-left 30s linear infinite;
+  }
+
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+}
